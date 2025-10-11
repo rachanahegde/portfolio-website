@@ -27,9 +27,10 @@ export default function HeroSection() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="mt-6 max-w-2xl mx-auto text-lg text-[var(--color-text)/80]"
         >
-          I craft beautiful, user-centric digital experiences where elegant
-          design meets seamless functionality. Currently exploring the
-          intersection of code and agentic AI workflows.
+          I craft thoughtful, user-centric digital experiences where elegant
+          design meets functionality. Lately, I’ve been exploring how code and
+          agentic AI can work together to create more intuitive, intelligent
+          products.
         </motion.p>
 
         <motion.div
