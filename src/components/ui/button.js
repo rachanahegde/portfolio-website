@@ -7,9 +7,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[var(--color-primary)] text-white hover:bg-pink-900",
+        default:
+          "bg-[var(--color-primary)] text-white hover:bg-[var(--color-leaf)]",
         outline:
           "border border-[var(--color-primary)] text-[var(--color-text)] hover:bg-[var(--color-accent)]",
+        sage: "bg-[var(--color-sage)] text-[var(--color-text)] hover:bg-[var(--color-leaf)]",
+        sand: "bg-[var(--color-sand)] text-[var(--color-text)] hover:bg-[var(--color-accent)]",
       },
       size: {
         default: "h-11 px-6 py-2",

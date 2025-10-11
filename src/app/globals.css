@@ -3,12 +3,15 @@
 
 @import 'tailwindcss';
 
-/* 🌸 Root colors (soft, modern floral palette) */
+/* 🌸 Root colors (modern floral + balanced neutrals) */
 :root {
-  --color-bg: #fffafc;
-  --color-accent: #f9d7e3;
-  --color-primary: #f79aba;
-  --color-text: #3b2f2f;
+  --color-bg: #fff8f7;          /* soft ivory blush */
+  --color-primary: #e8a6b8;     /* rose quartz */
+  --color-accent: #f9d7e3;      /* light blush accent */
+  --color-sage: #cdd8c2;        /* muted sage green */
+  --color-leaf: #a7b89c;        /* eucalyptus green */
+  --color-sand: #e9dbc8;        /* warm beige tone */
+  --color-text: #3a2f2f;        /* espresso brown */
 }
 
 /* 🌸 Base theme */

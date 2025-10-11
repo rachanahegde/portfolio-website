@@ -38,8 +38,8 @@ export default function HeroSection() {
           transition={{ delay: 0.6, duration: 0.6 }}
           className="mt-10 flex justify-center gap-4"
         >
-          <Button>View My Work</Button>
-          <Button variant="outline">Contact Me</Button>
+          <Button variant="sage">View My Work</Button>
+          <Button variant="sand">Contact Me</Button>
         </motion.div>
       </Container>
     </section>
