@@ -1,5 +1,6 @@
 import HeroSection from "@/components/hero-section";
 import AboutSection from "@/components/about-section";
+import FeaturedProjects from "@/components/featured-projects";
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       {/* Page sections */}
       <HeroSection />
       <AboutSection />
+      <FeaturedProjects />
     </main>
   );
 }
