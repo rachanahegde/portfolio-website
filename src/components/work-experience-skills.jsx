@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import Container from "@/components/ui/container";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { HyperText } from "@/components/ui/hyper-text";
+import { Marquee } from "@/components/ui/marquee";
+import { NumberTicker } from "@/components/ui/number-ticker";
 import {
   Briefcase,
   Code2,
@@ -15,6 +19,8 @@ import {
   Settings,
   Wrench,
   Lightbulb,
+  Award,
+  Rocket,
 } from "lucide-react";
 
 export default function WorkExperienceSkills() {
@@ -84,24 +90,97 @@ export default function WorkExperienceSkills() {
     "Leverage AI tools (Cursor, Copilot, Claude) to streamline development workflows",
   ];
 
+  const techStack = [
+    { name: "React", color: "#61DAFB" },
+    { name: "Next.js", color: "#000000" },
+    { name: "JavaScript", color: "#F7DF1E" },
+    { name: "TypeScript", color: "#3178C6" },
+    { name: "Tailwind CSS", color: "#06B6D4" },
+    { name: "Node.js", color: "#339933" },
+    { name: "Python", color: "#3776AB" },
+    { name: "Figma", color: "#F24E1E" },
+    { name: "Git", color: "#F05032" },
+    { name: "HTML5", color: "#E34F26" },
+    { name: "CSS3", color: "#1572B6" },
+  ];
+
   return (
-    <section className="relative py-24 backdrop-blur-[1px] bg-[var(--color-bg)]/70 text-[var(--color-text)]">
+    <section className="relative py-24 bg-[var(--color-bg)]/70 text-[var(--color-text)]">
       <Container>
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-[Playfair_Display] font-semibold mb-4">
-            Work Experience & Skills
-          </h2>
-          <p className="text-lg text-[var(--color-text)/80] max-w-2xl mx-auto">
-            Building modern web experiences with thoughtful design and clean
-            code
-          </p>
-        </motion.div>
+        {/* Statistics Section with NumberTicker for Experience, Projects, and Technologies */}
+        <BlurFade delay={0.1} inView>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+            <div className="text-center p-6 bg-white/60 rounded-2xl border border-pink-100 shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Award className="text-[var(--color-primary)]" size={24} />
+                <NumberTicker
+                  value={6}
+                  className="text-4xl font-bold text-[var(--color-primary)]"
+                />
+                <span className="text-4xl font-bold text-[var(--color-primary)]">+</span>
+              </div>
+              <p className="text-sm font-medium text-[var(--color-text)/80]">Months Experience</p>
+            </div>
+            <div className="text-center p-6 bg-white/60 rounded-2xl border border-pink-100 shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Rocket className="text-[var(--color-primary)]" size={24} />
+                <NumberTicker
+                  value={15}
+                  className="text-4xl font-bold text-[var(--color-primary)]"
+                />
+                <span className="text-4xl font-bold text-[var(--color-primary)]">+</span>
+              </div>
+              <p className="text-sm font-medium text-[var(--color-text)/80]">Projects Completed</p>
+            </div>
+            <div className="text-center p-6 bg-white/60 rounded-2xl border border-pink-100 shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Code2 className="text-[var(--color-primary)]" size={24} />
+                <NumberTicker
+                  value={20}
+                  className="text-4xl font-bold text-[var(--color-primary)]"
+                />
+                <span className="text-4xl font-bold text-[var(--color-primary)]">+</span>
+              </div>
+              <p className="text-sm font-medium text-[var(--color-text)/80]">Technologies</p>
+            </div>
+          </div>
+        </BlurFade>
+
+        {/* Header with HyperText */}
+        <BlurFade delay={0.2} inView>
+          <div className="text-center mb-8">
+            <HyperText
+              className="text-3xl sm:text-4xl font-[Playfair_Display] font-semibold mb-4"
+              duration={1000}
+            >
+              Work Experience & Skills
+            </HyperText>
+            <p className="text-lg text-[var(--color-text)/80] max-w-2xl mx-auto">
+              Building modern web experiences with thoughtful design and clean
+              code
+            </p>
+          </div>
+        </BlurFade>
+
+        {/* Tech Stack Marquee */}
+        <BlurFade delay={0.3} inView>
+          <div className="mb-12 overflow-hidden">
+            <Marquee pauseOnHover className="[--duration:30s]">
+              {techStack.map((tech) => (
+                <div
+                  key={tech.name}
+                  className="mx-6 flex items-center gap-2 px-4 py-2 bg-white/50 rounded-full border border-pink-100 shadow-sm"
+                >
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: tech.color }}
+                  />
+                  <span className="font-medium text-sm">{tech.name}</span>
+                </div>
+              ))}
+            </Marquee>
+          </div>
+        </BlurFade>
 
         {/* Tabs */}
         <div className="flex justify-center gap-4 mb-12">
@@ -116,11 +195,10 @@ export default function WorkExperienceSkills() {
             <button
               key={id}
               onClick={() => setTab(id)}
-              className={`group px-8 py-3 rounded-full font-medium transition-all duration-300 ${
-                tab === id
-                  ? "bg-[var(--color-primary)] text-white shadow-lg"
-                  : "bg-white text-[var(--color-text)] hover:shadow-md border border-pink-100"
-              }`}
+              className={`group px-8 py-3 rounded-full font-medium transition-all duration-300 ${tab === id
+                ? "bg-[var(--color-primary)] text-white shadow-lg"
+                : "bg-white text-[var(--color-text)] hover:shadow-md border border-pink-100"
+                }`}
             >
               <span className="flex items-center gap-2">
                 {icon} {label}
@@ -132,14 +210,8 @@ export default function WorkExperienceSkills() {
         {/* Animated Content */}
         <AnimatePresence mode="wait">
           {tab === "experience" ? (
-            /* EXPERIENCE SECTION (unchanged) */
-            <motion.div
-              key="experience"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
+            /* EXPERIENCE SECTION */
+            <BlurFade key="experience" delay={0.3} inView>
               <Card className="p-8 sm:p-12 bg-gradient-to-br from-white via-pink-50 to-sand/40 border border-pink-100 rounded-3xl shadow-2xl max-w-4xl mx-auto relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-pink-200/20 to-transparent rounded-full blur-3xl" />
                 <div className="relative z-10">
@@ -171,11 +243,8 @@ export default function WorkExperienceSkills() {
                     </div>
                     <div className="space-y-3">
                       {responsibilities.map((resp, i) => (
-                        <motion.div
+                        <div
                           key={i}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
                           className="flex items-start gap-3 group"
                         >
                           <CheckCircle2
@@ -183,7 +252,7 @@ export default function WorkExperienceSkills() {
                             size={18}
                           />
                           <span className="leading-relaxed">{resp}</span>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -209,80 +278,72 @@ export default function WorkExperienceSkills() {
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </BlurFade>
           ) : (
             /* 🌈 ENHANCED SKILLS SECTION */
-            <motion.div
+            <div
               key="skills"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
             >
               {Object.entries(skills).map(([category, data], index) => (
-                <motion.div
+                <BlurFade
                   key={category}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onMouseEnter={() => setHoveredSkill(category)}
-                  onMouseLeave={() => setHoveredSkill(null)}
+                  delay={0.3 + index * 0.1}
+                  inView
                 >
-                  <Card
-                    className={`relative overflow-hidden p-6 rounded-2xl border border-pink-100 shadow-md transition-all duration-300 h-full bg-gradient-to-br ${
-                      data.color
-                    } ${
-                      hoveredSkill === category
-                        ? "scale-[1.03] shadow-xl border-[var(--color-primary)]"
-                        : "hover:shadow-lg"
-                    }`}
+                  <div
+                    onMouseEnter={() => setHoveredSkill(category)}
+                    onMouseLeave={() => setHoveredSkill(null)}
+                    className="h-full"
                   >
-                    {/* Glow Overlay */}
-                    <div
-                      className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ${
-                        hoveredSkill === category ? "opacity-100" : ""
-                      }`}
-                    />
+                    <Card
+                      className={`relative overflow-hidden p-6 rounded-2xl border transition-all duration-500 h-full bg-gradient-to-br ${data.color
+                        } ${hoveredSkill === category
+                          ? "scale-105 shadow-2xl border-[var(--color-primary)] ring-2 ring-[var(--color-primary)]/20"
+                          : "border-pink-100 shadow-md hover:shadow-xl"
+                        }`}
+                    >
+                      {/* Animated Glow Effect */}
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/10 to-transparent transition-opacity duration-500 ${hoveredSkill === category ? "opacity-100" : "opacity-0"
+                          }`}
+                      />
 
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-3 mb-4">
-                        <motion.div
-                          animate={{
-                            rotate:
-                              hoveredSkill === category ? [0, 10, -10, 0] : 0,
-                          }}
-                          transition={{ duration: 0.4 }}
-                          className="text-3xl"
-                        >
-                          {data.icon}
-                        </motion.div>
-                        <h4 className="text-lg font-semibold text-[var(--color-primary)]">
-                          {category}
-                        </h4>
-                      </div>
-
-                      <ul className="space-y-2">
-                        {data.skills.map((skill, i) => (
-                          <motion.li
-                            key={skill}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.05 }}
-                            className="flex items-center gap-2 text-sm"
+                      <div className="relative z-10">
+                        <div className="flex items-center gap-3 mb-5">
+                          <div
+                            className={`p-2 rounded-xl bg-white/80 shadow-sm transition-transform duration-300 ${hoveredSkill === category ? "scale-110 rotate-6" : ""
+                              }`}
                           >
-                            <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary)]" />
-                            <span className="hover:text-[var(--color-primary)] transition-colors">
-                              {skill}
-                            </span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                  </Card>
-                </motion.div>
+                            {data.icon}
+                          </div>
+                          <h4 className="text-lg font-semibold text-[var(--color-primary)]">
+                            {category}
+                          </h4>
+                        </div>
+
+                        <ul className="space-y-2.5">
+                          {data.skills.map((skill, i) => (
+                            <li
+                              key={skill}
+                              className="flex items-center gap-2.5 text-sm group/item"
+                              style={{
+                                animationDelay: `${i * 50}ms`
+                              }}
+                            >
+                              <div className="w-2 h-2 rounded-full bg-[var(--color-primary)] group-hover/item:scale-150 transition-transform" />
+                              <span className="group-hover/item:text-[var(--color-primary)] group-hover/item:translate-x-1 transition-all duration-200">
+                                {skill}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </Card>
+                  </div>
+                </BlurFade>
               ))}
-            </motion.div>
+            </div>
           )}
         </AnimatePresence>
       </Container>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ExternalLink,
   Github,
@@ -16,130 +16,139 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projects } from "./data/projects";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { Meteors } from "@/components/ui/meteors";
 
 export default function FeaturedProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
 
   return (
-    <section className="relative pb-24 backdrop-blur-[1px] bg-[var(--color-bg)]/70 text-[var(--color-text)]">
-      <div className="container mx-auto px-6">
+    <section className="relative pb-24 bg-[var(--color-bg)]/70 text-[var(--color-text)] overflow-hidden">
+      {/* Meteors background effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <Meteors number={20} />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-[Playfair_Display] font-semibold mb-4 text-[var(--color-text)]">
-            Featured Projects
-          </h2>
-          <p className="text-lg text-[var(--color-text)/80] max-w-2xl mx-auto">
-            A curated selection of projects showcasing thoughtful design, clean
-            code, and innovative solutions
-          </p>
-        </motion.div>
+        <BlurFade delay={0.2} inView>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-[Playfair_Display] font-semibold mb-4 text-[var(--color-text)]">
+              Featured Projects
+            </h2>
+            <p className="text-lg text-[var(--color-text)/80] max-w-2xl mx-auto">
+              A curated selection of projects showcasing thoughtful design, clean
+              code, and innovative solutions
+            </p>
+          </div>
+        </BlurFade>
 
         {/* 🔸 Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <motion.div
+            <BlurFade
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative group cursor-pointer"
-              onMouseEnter={() => setHoveredCard(project.id)}
-              onMouseLeave={() => setHoveredCard(null)}
-              onClick={() => setSelectedProject(project)}
+              delay={0.3 + index * 0.1}
+              inView
             >
-              {/* 🔸 Fixed card size + solid background */}
-              <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white border border-pink-100 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] h-[420px] flex flex-col">
-                {/* Image Section */}
-                <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+              <div
+                className="relative group cursor-pointer"
+                onMouseEnter={() => setHoveredCard(project.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                onClick={() => setSelectedProject(project)}
+              >
+                {/* 🔸 Fixed card size + solid background */}
+                <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white border border-pink-100 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] h-[420px] flex flex-col">
+                  {/* Animated border beam on hover */}
+                  <BorderBeam size={250} duration={12} delay={9} />
+                  {/* Image Section */}
+                  <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
 
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-pink-200/20 via-rose-200/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-pink-200/20 via-rose-200/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                  {/* Hover Buttons */}
-                  <AnimatePresence>
-                    {hoveredCard === project.id && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
-                        className="absolute inset-0 flex items-center justify-center gap-4"
-                      >
-                        {/* View Button */}
-                        <Button
-                          variant="sage"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(project.demoUrl, "_blank");
-                          }}
-                          className="flex items-center gap-2 px-3 py-3 rounded-full font-small 
+                    {/* Hover Buttons */}
+                    <AnimatePresence>
+                      {hoveredCard === project.id && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 20 }}
+                          className="absolute inset-0 flex items-center justify-center gap-4"
+                        >
+                          {/* View Button */}
+                          <Button
+                            variant="sage"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.demoUrl, "_blank");
+                            }}
+                            className="flex items-center gap-2 px-3 py-3 rounded-full font-small 
                         bg-[var(--color-primary)] text-white 
                         hover:bg-[var(--color-accent)] 
                         hover:shadow-[0_0_18px_var(--color-primary)] 
                         transition-all duration-300 shadow-md text-xs"
-                        >
-                          <ExternalLink size={16} />
-                          View
-                        </Button>
+                          >
+                            <ExternalLink size={16} />
+                            View
+                          </Button>
 
-                        {/* Code Button */}
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(project.githubUrl, "_blank");
-                          }}
-                          className="flex items-center gap-2 px-3 py-3 rounded-full font-medium 
+                          {/* Code Button */}
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.githubUrl, "_blank");
+                            }}
+                            className="flex items-center gap-2 px-3 py-3 rounded-full font-medium 
                         bg-[var(--color-bg)] text-[var(--color-text)] 
                         hover:shadow-[0_0_18px_var(--color-sand)] 
                         hover:brightness-105 transition-all duration-300 shadow-md border-0 text-xs"
-                        >
-                          <Github size={16} />
-                          Code
-                        </Button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Content Section */}
-                <div className="p-6 flex flex-col justify-between flex-grow text-[var(--color-text)]">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 text-[var(--color-text)] group-hover:text-[var(--color-primary)] transition-colors">
-                      {project.title}
-                    </h3>
-                    {/* 2–3 sentence space */}
-                    <p className="text-sm text-[var(--color-text)/80] mb-4 line-clamp-3">
-                      {project.shortDescription}
-                    </p>
+                          >
+                            <Github size={16} />
+                            Code
+                          </Button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 text-xs rounded-full bg-pink-50 text-[var(--color-text)] border border-pink-100"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  {/* Content Section */}
+                  <div className="p-6 flex flex-col justify-between flex-grow text-[var(--color-text)]">
+                    <div>
+                      <h3 className="text-xl font-semibold mb-2 text-[var(--color-text)] group-hover:text-[var(--color-primary)] transition-colors">
+                        {project.title}
+                      </h3>
+                      {/* 2–3 sentence space */}
+                      <p className="text-sm text-[var(--color-text)/80] mb-4 line-clamp-3">
+                        {project.shortDescription}
+                      </p>
+                    </div>
+
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2 mt-auto">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 text-xs rounded-full bg-pink-50 text-[var(--color-text)] border border-pink-100"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </BlurFade>
           ))}
         </div>
       </div>
