@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { OrbitingCircles } from "@/components/ui/orbiting-circles";
+import { cn } from "@/lib/utils";
 import {
   Code2,
   Palette,
@@ -16,56 +17,62 @@ import {
 } from "lucide-react";
 
 export default function AboutSection() {
+  const [flippedTiles, setFlippedTiles] = useState(new Set());
+  const gridSize = 8; // 8x8 grid
+  const totalTiles = gridSize * gridSize;
+
+  useEffect(() => {
+    // Stagger the tile flips for a wave effect
+    const timer = setTimeout(() => {
+      const flipTiles = () => {
+        for (let i = 0; i < totalTiles; i++) {
+          setTimeout(() => {
+            setFlippedTiles(prev => new Set([...prev, i]));
+          }, i * 30); // 30ms delay between each tile
+        }
+      };
+      flipTiles();
+    }, 500); // Start after 500ms
+
+    return () => clearTimeout(timer);
+  }, [totalTiles]);
+
   return (
     <section className="relative pb-24 bg-[var(--color-bg)]/70 text-[var(--color-text)]">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
-        {/* Left: Image with Orbiting Circles */}
+      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-4">
+        {/* Left: Image with Tile Flip Reveal */}
         <BlurFade delay={0.2} inView className="w-full md:w-1/2 flex justify-center">
-          <div className="relative w-85 h-85 flex items-center justify-center">
-            {/* Orbiting circles for visual interest */}
-            <OrbitingCircles
-              className="size-[30px] border-none bg-transparent"
-              duration={20}
-              delay={20}
-              radius={120}
-            >
-              <Atom className="text-sky-500" size={30} />
-            </OrbitingCircles>
-            <OrbitingCircles
-              className="size-[30px] border-none bg-transparent"
-              duration={20}
-              delay={10}
-              radius={120}
-            >
-              <Braces className="text-yellow-500" size={30} />
-            </OrbitingCircles>
-            <OrbitingCircles
-              className="size-[30px] border-none bg-transparent"
-              reverse
-              duration={20}
-              delay={0}
-              radius={160}
-            >
-              <Layout className="text-cyan-600" size={30} />
-            </OrbitingCircles>
-            <OrbitingCircles
-              className="size-[30px] border-none bg-transparent"
-              reverse
-              duration={20}
-              delay={10}
-              radius={160}
-            >
-              <Cpu className="text-rose-500" size={30} />
-            </OrbitingCircles>
-
-            {/* Profile image */}
-            <div className="relative w-64 h-64 rounded-2xl overflow-hidden shadow-lg z-10">
+          <div className="relative w-90 h-90 flex items-center justify-center">
+            {/* Profile image container */}
+            <div className="relative w-80 h-80 rounded-2xl overflow-hidden shadow-2xl ring-4 ring-white/50 ring-offset-4 ring-offset-pink-100/50">
+              {/* The actual image */}
               <Image
                 src="/profile.png"
                 alt="Rachana Hegde portrait"
                 fill
                 className="object-cover"
               />
+
+              {/* Tile overlay grid */}
+              <div className="absolute inset-0 grid grid-cols-8 grid-rows-8 pointer-events-none">
+                {Array.from({ length: totalTiles }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={cn(
+                      "relative transition-all duration-500 ease-out",
+                      flippedTiles.has(index)
+                        ? "opacity-0 scale-0 rotate-180"
+                        : "opacity-100 scale-100 rotate-0"
+                    )}
+                    style={{
+                      transformOrigin: "center",
+                      transitionDelay: `${index * 30}ms`
+                    }}
+                  >
+                    <div className="w-full h-full bg-gradient-to-br from-[var(--color-primary)] via-pink-300 to-[var(--color-accent)] backdrop-blur-sm" />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </BlurFade>
