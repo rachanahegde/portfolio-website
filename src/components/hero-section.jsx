@@ -56,6 +56,12 @@ export default function HeroSection() {
               background="var(--color-primary)"
               shimmerColor="#ffffff"
               shimmerSize="0.1em"
+              onClick={() => {
+                document.getElementById('featured-projects')?.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }}
             >
               <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base">
                 View My Work
@@ -67,6 +73,12 @@ export default function HeroSection() {
               background="var(--color-sage)"
               shimmerColor="#ffffff"
               shimmerSize="0.1em"
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }}
             >
               <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base">
                 Contact Me

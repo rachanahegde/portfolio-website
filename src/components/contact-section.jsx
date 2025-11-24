@@ -7,7 +7,7 @@ import { Mail, Github, Instagram } from "lucide-react";
 
 export default function ContactSection() {
     return (
-        <section className="relative py-24 bg-[var(--color-bg)]/70 text-[var(--color-text)]">
+        <section id="contact" className="relative py-24 bg-[var(--color-bg)]/70 text-[var(--color-text)]">
             <BlurFade delay={0.2} inView>
                 <div className="container mx-auto px-6 text-center">
                     <SparklesText
