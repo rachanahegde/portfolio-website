@@ -24,8 +24,7 @@ import {
 } from "lucide-react";
 
 export default function WorkExperienceSkills() {
-  const [tab, setTab] = useState("experience");
-  const [hoveredSkill, setHoveredSkill] = useState("");
+  const [activeTab, setActiveTab] = useState("experience");
 
   const skills = {
     "Web Development": {
@@ -194,8 +193,8 @@ export default function WorkExperienceSkills() {
           ].map(({ id, label, icon }) => (
             <button
               key={id}
-              onClick={() => setTab(id)}
-              className={`group px-8 py-3 rounded-full font-medium transition-all duration-300 ${tab === id
+              onClick={() => setActiveTab(id)}
+              className={`group px-8 py-3 rounded-full font-medium transition-all duration-300 ${activeTab === id
                 ? "bg-[var(--color-primary)] text-white shadow-lg"
                 : "bg-white text-[var(--color-text)] hover:shadow-md border border-pink-100"
                 }`}
@@ -209,7 +208,7 @@ export default function WorkExperienceSkills() {
 
         {/* Animated Content */}
         <AnimatePresence mode="wait">
-          {tab === "experience" ? (
+          {activeTab === "experience" ? (
             /* EXPERIENCE SECTION */
             <BlurFade key="experience" delay={0.3} inView>
               <Card className="p-8 sm:p-12 bg-gradient-to-br from-white via-pink-50 to-sand/40 border border-pink-100 rounded-3xl shadow-2xl max-w-4xl mx-auto relative overflow-hidden">
@@ -291,29 +290,22 @@ export default function WorkExperienceSkills() {
                   delay={0.15 + index * 0.05}
                   inView
                 >
-                  <div
-                    onMouseEnter={() => setHoveredSkill(category)}
-                    onMouseLeave={() => setHoveredSkill(null)}
-                    className="h-full"
-                  >
+                  <div className="h-full group">
                     <Card
-                      className={`relative overflow-hidden p-6 rounded-2xl border transition-all duration-500 h-full bg-gradient-to-br ${data.color
-                        } ${hoveredSkill === category
-                          ? "scale-105 shadow-2xl border-[var(--color-primary)] ring-2 ring-[var(--color-primary)]/20"
-                          : "border-pink-100 shadow-md hover:shadow-xl"
-                        }`}
+                      className={`relative overflow-hidden p-6 rounded-2xl border transition-all duration-500 h-full bg-gradient-to-br ${data.color}
+                        border-pink-100 shadow-md 
+                        group-hover:scale-105 group-hover:shadow-2xl group-hover:border-[var(--color-primary)] group-hover:ring-2 group-hover:ring-[var(--color-primary)]/20
+                      `}
                     >
                       {/* Animated Glow Effect */}
                       <div
-                        className={`absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/10 to-transparent transition-opacity duration-500 ${hoveredSkill === category ? "opacity-100" : "opacity-0"
-                          }`}
+                        className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/10 to-transparent transition-opacity duration-500 opacity-0 group-hover:opacity-100"
                       />
 
                       <div className="relative z-10">
                         <div className="flex items-center gap-3 mb-5">
                           <div
-                            className={`p-2 rounded-xl bg-white/80 shadow-sm transition-transform duration-300 ${hoveredSkill === category ? "scale-110 rotate-6" : ""
-                              }`}
+                            className="p-2 rounded-xl bg-white/80 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
                           >
                             {data.icon}
                           </div>
