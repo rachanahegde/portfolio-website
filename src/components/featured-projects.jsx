@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ExternalLink,
@@ -33,7 +34,7 @@ export default function FeaturedProjects() {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section header */}
-        <BlurFade delay={0.2} inView>
+        <BlurFade delay={0.1} inView>
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-[Playfair_Display] font-semibold mb-4 text-[var(--color-text)]">
               Featured Projects
@@ -50,7 +51,7 @@ export default function FeaturedProjects() {
           {projects.map((project, index) => (
             <BlurFade
               key={project.id}
-              delay={0.3 + index * 0.1}
+              delay={0.15 + index * 0.05}
               inView
             >
               <div
@@ -64,11 +65,16 @@ export default function FeaturedProjects() {
                   {/* Animated border beam on hover */}
                   <BorderBeam size={250} duration={12} delay={9} />
                   {/* Image Section */}
-                  <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
-                    <img
+                  <div className="relative h-48 w-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-pink-50 to-sand/30">
+                    <Image
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading={index < 3 ? "eager" : "lazy"}
+                      quality={75}
+                      unoptimized
                     />
 
                     {/* Gradient overlay */}

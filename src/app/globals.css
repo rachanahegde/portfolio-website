@@ -40,11 +40,6 @@ body {
 }
 
 /* ⚡ Performance Optimizations */
-* {
-  /* Enable hardware acceleration for transforms and opacity */
-  will-change: auto;
-}
-
 /* Optimize animations by using GPU-accelerated properties */
 @media (prefers-reduced-motion: no-preference) {
   * {
