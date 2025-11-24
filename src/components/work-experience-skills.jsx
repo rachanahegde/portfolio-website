@@ -136,7 +136,7 @@ export default function WorkExperienceSkills() {
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Code2 className="text-[var(--color-primary)]" size={24} />
                 <NumberTicker
-                  value={20}
+                  value={15}
                   className="text-4xl font-bold text-[var(--color-primary)]"
                 />
                 <span className="text-4xl font-bold text-[var(--color-primary)]">+</span>
